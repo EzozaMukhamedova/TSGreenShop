@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, FormEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import search from "../../assets/images/search.png";
 import bell from "../../assets/images/bell.png";
@@ -11,6 +11,14 @@ import { signInWithGoogle } from "../../../firebase";
 import { Button } from "antd";
 import axios from "axios";
 
+interface User {
+  name: string;
+  surname?: string;
+  email: string;
+  password?: string | null;
+  photo?: string;
+}
+
 function Navbar2() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isRegister, setIsRegister] = useState(false);
@@ -19,7 +27,81 @@ function Navbar2() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState<User | null>(null);
+
+  // const api = import.meta.env.VITE_API;
+  // const navigate = useNavigate();
+
+  // useEffect(() => {
+  //   const loggedInUser = localStorage.getItem("loggedInUser");
+  //   if (loggedInUser) {
+  //     setUser(JSON.parse(loggedInUser));
+  //   }
+  // }, []);
+
+  // const signInWidthGoogleFc = async () => {
+  //   try {
+  //     const result = await signInWithGoogle();
+  //     const googleUser = {
+  //       name: result.user.displayName,
+  //       email: result.user.email,
+  //       photo: result.user.photoURL,
+  //     };
+
+  //     await axios.post(
+  //       `${api}/user/sign-in/google?access_token=64bebc1e2c6d3f056a8c85b7`,
+  //       { email: googleUser.email }
+  //     );
+
+  //     localStorage.setItem("loggedInUser", JSON.stringify(googleUser));
+  //     setUser(googleUser);
+  //     setIsModalOpen(false);
+  //     toast.success("Google orqali muvaffaqiyatli kirdingiz!");
+  //   } catch (error) {
+  //     console.error("Google login xatolik:", error);
+  //     toast.error("Google orqali login bo‘lmadi!");
+  //   }
+  // };
+
+  // const handleRegister = () => {
+  //   if (password !== confirmPassword) {
+  //     alert("Parollar mos emas!");
+  //     return;
+  //   }
+
+  //   // const existingUser = JSON.parse(localStorage.getItem(email));
+  //   const storedData = localStorage.getItem(email);
+  //   const existingUser: User | null = storedData
+  //     ? JSON.parse(storedData)
+  //     : null;
+  //   if (existingUser) {
+  //     alert("Bu user allaqachon mavjud!");
+  //     return;
+  //   }
+  //   const newUser = { name, surname, email, password };
+  //   localStorage.setItem(email, JSON.stringify(newUser));
+  //   localStorage.setItem("loggedInUser", JSON.stringify(newUser));
+  //   setUser(newUser);
+  //   setIsModalOpen(false);
+  //   alert("Ro‘yxatdan o‘tish muvaffaqiyatli!");
+  // };
+
+  // const handleLogin = () => {
+  //   const savedUser = JSON.parse(localStorage.getItem(email) || 'null');
+  //   if (savedUser && savedUser.password === password) {
+  //     localStorage.setItem("loggedInUser", JSON.stringify(savedUser));
+  //     setUser(savedUser);
+  //     setIsModalOpen(false);
+  //     alert("Login muvaffaqiyatli yakunlandi!");
+  //   } else {
+  //     alert("Email yoki parol noto‘g‘ri!");
+  //   }
+  // };
+
+  // const handleLogout = () => {
+  //   localStorage.removeItem("loggedInUser");
+  //   setUser(null);
+  // };
 
   const api = import.meta.env.VITE_API;
   const navigate = useNavigate();
@@ -34,19 +116,19 @@ function Navbar2() {
   const signInWidthGoogleFc = async () => {
     try {
       const result = await signInWithGoogle();
-      const googleUser = {
-        name: result.user.displayName,
+      if (!result.user.email) throw new Error("Google email not available");
+
+      const googleUser: User = {
+        name: result.user.displayName || "Google User",
         email: result.user.email,
-        photo: result.user.photoURL,
+        photo: result.user.photoURL || undefined,
       };
 
-      // Backendga yuborish
       await axios.post(
         `${api}/user/sign-in/google?access_token=64bebc1e2c6d3f056a8c85b7`,
         { email: googleUser.email }
       );
 
-      // malumot saqlash
       localStorage.setItem("loggedInUser", JSON.stringify(googleUser));
       setUser(googleUser);
       setIsModalOpen(false);
@@ -57,17 +139,22 @@ function Navbar2() {
     }
   };
 
-  const handleRegister = () => {
+  const handleRegister = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     if (password !== confirmPassword) {
       alert("Parollar mos emas!");
       return;
     }
-    const existingUser = JSON.parse(localStorage.getItem(email));
+
+    const storedData = localStorage.getItem(email);
+    const existingUser: User | null = storedData
+      ? JSON.parse(storedData)
+      : null;
     if (existingUser) {
       alert("Bu user allaqachon mavjud!");
       return;
     }
-    const newUser = { name, surname, email, password };
+    const newUser: User = { name, surname, email, password };
     localStorage.setItem(email, JSON.stringify(newUser));
     localStorage.setItem("loggedInUser", JSON.stringify(newUser));
     setUser(newUser);
@@ -75,8 +162,10 @@ function Navbar2() {
     alert("Ro‘yxatdan o‘tish muvaffaqiyatli!");
   };
 
-  const handleLogin = () => {
-    const savedUser = JSON.parse(localStorage.getItem(email));
+  const handleLogin = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const storedData = localStorage.getItem(email);
+    const savedUser: User | null = storedData ? JSON.parse(storedData) : null;
     if (savedUser && savedUser.password === password) {
       localStorage.setItem("loggedInUser", JSON.stringify(savedUser));
       setUser(savedUser);
@@ -254,3 +343,170 @@ function Navbar2() {
 }
 
 export default Navbar2;
+
+// import React, { useState, useEffect, FormEvent } from "react";
+// import { useNavigate } from "react-router-dom";
+// import search from "../../assets/images/search.png";
+// import bell from "../../assets/images/bell.png";
+// import savat from "../../assets/images/savat.png";
+// import green from "../../assets/images/green.svg";
+// import { toast, ToastContainer } from "react-toastify";
+// import "react-toastify/dist/ReactToastify.css";
+// import { signInWithGoogle } from "../../../firebase";
+// import { Button } from "antd";
+// import axios from "axios";
+
+// interface User {
+//   name: string;
+//   surname?: string;
+//   email: string;
+//   password?: string;
+//   photo?: string;
+// }
+
+// function Navbar2() {
+//   const [isModalOpen, setIsModalOpen] = useState(false);
+//   const [isRegister, setIsRegister] = useState(false);
+//   const [name, setName] = useState("");
+//   const [surname, setSurname] = useState("");
+//   const [email, setEmail] = useState("");
+//   const [password, setPassword] = useState("");
+//   const [confirmPassword, setConfirmPassword] = useState("");
+//   const [user, setUser] = useState<User | null>(null);
+
+//   const api = import.meta.env.VITE_API;
+//   const navigate = useNavigate();
+
+//   useEffect(() => {
+//     const loggedInUser = localStorage.getItem("loggedInUser");
+//     if (loggedInUser) {
+//       setUser(JSON.parse(loggedInUser));
+//     }
+//   }, []);
+
+//   const signInWidthGoogleFc = async () => {
+//     try {
+//       const result = await signInWithGoogle();
+//       const googleUser: User = {
+//         name: result.user.displayName,
+//         email: result.user.email,
+//         photo: result.user.photoURL,
+//       };
+
+//       await axios.post(`${api}/user/sign-in/google?access_token=64bebc1e2c6d3f056a8c85b7`, { email: googleUser.email });
+
+//       localStorage.setItem("loggedInUser", JSON.stringify(googleUser));
+//       setUser(googleUser);
+//       setIsModalOpen(false);
+//       toast.success("Google orqali muvaffaqiyatli kirdingiz!");
+//     } catch (error) {
+//       console.error("Google login xatolik:", error);
+//       toast.error("Google orqali login bo‘lmadi!");
+//     }
+//   };
+
+//   const handleRegister = (e: FormEvent<HTMLFormElement>) => {
+//     e.preventDefault();
+//     if (password !== confirmPassword) {
+//       alert("Parollar mos emas!");
+//       return;
+//     }
+//     const existingUser = localStorage.getItem(email);
+//     if (existingUser) {
+//       alert("Bu user allaqachon mavjud!");
+//       return;
+//     }
+//     const newUser: User = { name, surname, email, password };
+//     localStorage.setItem(email, JSON.stringify(newUser));
+//     localStorage.setItem("loggedInUser", JSON.stringify(newUser));
+//     setUser(newUser);
+//     setIsModalOpen(false);
+//     alert("Ro‘yxatdan o‘tish muvaffaqiyatli!");
+//   };
+
+//   const handleLogin = (e: FormEvent<HTMLFormElement>) => {
+//     e.preventDefault();
+//     const savedUser = localStorage.getItem(email);
+//     if (savedUser) {
+//       const parsedUser: User = JSON.parse(savedUser);
+//       if (parsedUser.password === password) {
+//         localStorage.setItem("loggedInUser", JSON.stringify(parsedUser));
+//         setUser(parsedUser);
+//         setIsModalOpen(false);
+//         alert("Login muvaffaqiyatli yakunlandi!");
+//       } else {
+//         alert("Email yoki parol noto‘g‘ri!");
+//       }
+//     } else {
+//       alert("User topilmadi!");
+//     }
+//   };
+
+//   const handleLogout = () => {
+//     localStorage.removeItem("loggedInUser");
+//     setUser(null);
+//   };
+
+//   return (
+//     <div>
+//       <ToastContainer />
+//       {/* Navbar qismi avvalgidek qoladi, hech qanday o'zgarish talab qilmaydi */}
+//       {/* Modal va Form qismi ham o‘zgarmaydi, faqat onSubmit tipi to‘g‘irlandi */}
+
+//       <form onSubmit={isRegister ? handleRegister : handleLogin} className="space-y-4">
+//         {isRegister && (
+//           <>
+//             <input
+//               type="text"
+//               value={name}
+//               onChange={(e) => setName(e.target.value)}
+//               placeholder="Name"
+//               className="w-full p-2 border rounded-md"
+//               required
+//             />
+//             <input
+//               type="text"
+//               value={surname}
+//               onChange={(e) => setSurname(e.target.value)}
+//               placeholder="Surname"
+//               className="w-full p-2 border rounded-md"
+//               required
+//             />
+//           </>
+//         )}
+//         <input
+//           type="email"
+//           value={email}
+//           onChange={(e) => setEmail(e.target.value)}
+//           placeholder="Email"
+//           className="w-full p-2 border rounded-md"
+//           required
+//         />
+//         <input
+//           type="password"
+//           value={password}
+//           onChange={(e) => setPassword(e.target.value)}
+//           placeholder="Password"
+//           className="w-full p-2 border rounded-md"
+//           required
+//         />
+//         {isRegister && (
+//           <input
+//             type="password"
+//             value={confirmPassword}
+//             onChange={(e) => setConfirmPassword(e.target.value)}
+//             placeholder="Confirm Password"
+//             className="w-full p-2 border rounded-md"
+//             required
+//           />
+//         )}
+//         <button type="submit" className="w-full py-2 mt-4 text-white bg-green-600 rounded-md">
+//           {isRegister ? "Register" : "Login"}
+//         </button>
+//         <Button onClick={signInWidthGoogleFc}>Sign in with Google</Button>
+//       </form>
+//     </div>
+//   );
+// }
+
+// export default Navbar2;

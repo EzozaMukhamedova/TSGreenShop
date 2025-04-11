@@ -12,7 +12,7 @@ export default function TopFooter() {
           width={100}
           height={100}
           style={{ width: "auto", height: "auto" }}
-          priority
+          // priority
         />
         <h3 className="font-bold text-base mt-[17px] mb-[9px]">Garden Care</h3>
         <p className="text-xs font-light">
@@ -27,7 +27,7 @@ export default function TopFooter() {
           width={100}
           height={100}
           style={{ width: "auto", height: "auto" }}
-          priority
+          // priority
         />
         <h3 className="font-bold text-base mt-[17px] mb-[9px]">Garden Care</h3>
         <p className="text-xs font-light">
@@ -42,7 +42,7 @@ export default function TopFooter() {
           width={100}
           height={100}
           style={{ width: "auto", height: "auto" }}
-          priority
+          // priority
         />
         <h3 className="font-bold text-base mt-[17px] mb-[9px]">Garden Care</h3>
         <p className="text-xs font-light">

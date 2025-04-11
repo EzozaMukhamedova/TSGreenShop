@@ -10,7 +10,15 @@ import header2 from "../../assets/images/header2.png";
 import header3 from "../../assets/images/header3.png";
 import Navbar2 from "../Navbar/page";
 
-const slides = [
+interface Slides {
+  welcome: string;
+  title: string;
+  description: string;
+  buttonText: string;
+  image: string;
+}
+
+const slides: Slides[] = [
   {
     welcome: "WELCOME TO GREENSHOP",
     title: "LET'S MAKE A BETTER PLANET",
