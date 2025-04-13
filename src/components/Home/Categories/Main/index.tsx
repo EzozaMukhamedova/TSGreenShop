@@ -103,7 +103,7 @@ const CategoriesMain = () => {
             Filter
           </button>
         </div>
-        <div className="mt-[100px]  ">
+        <div className="mt-[500px] border ">
           <h3 className="font-bold text-left text-[20px] text-[#3D3D3D]">
             Size
           </h3>

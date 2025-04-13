@@ -10,6 +10,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { signInWithGoogle } from "../../../firebase";
 import { Button } from "antd";
 import axios from "axios";
+import { useAppSelector } from "../../redux/store/hooks";
 
 interface User {
   name: string;
@@ -29,82 +30,10 @@ function Navbar2() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [user, setUser] = useState<User | null>(null);
 
-  // const api = import.meta.env.VITE_API;
-  // const navigate = useNavigate();
-
-  // useEffect(() => {
-  //   const loggedInUser = localStorage.getItem("loggedInUser");
-  //   if (loggedInUser) {
-  //     setUser(JSON.parse(loggedInUser));
-  //   }
-  // }, []);
-
-  // const signInWidthGoogleFc = async () => {
-  //   try {
-  //     const result = await signInWithGoogle();
-  //     const googleUser = {
-  //       name: result.user.displayName,
-  //       email: result.user.email,
-  //       photo: result.user.photoURL,
-  //     };
-
-  //     await axios.post(
-  //       `${api}/user/sign-in/google?access_token=64bebc1e2c6d3f056a8c85b7`,
-  //       { email: googleUser.email }
-  //     );
-
-  //     localStorage.setItem("loggedInUser", JSON.stringify(googleUser));
-  //     setUser(googleUser);
-  //     setIsModalOpen(false);
-  //     toast.success("Google orqali muvaffaqiyatli kirdingiz!");
-  //   } catch (error) {
-  //     console.error("Google login xatolik:", error);
-  //     toast.error("Google orqali login bo‘lmadi!");
-  //   }
-  // };
-
-  // const handleRegister = () => {
-  //   if (password !== confirmPassword) {
-  //     alert("Parollar mos emas!");
-  //     return;
-  //   }
-
-  //   // const existingUser = JSON.parse(localStorage.getItem(email));
-  //   const storedData = localStorage.getItem(email);
-  //   const existingUser: User | null = storedData
-  //     ? JSON.parse(storedData)
-  //     : null;
-  //   if (existingUser) {
-  //     alert("Bu user allaqachon mavjud!");
-  //     return;
-  //   }
-  //   const newUser = { name, surname, email, password };
-  //   localStorage.setItem(email, JSON.stringify(newUser));
-  //   localStorage.setItem("loggedInUser", JSON.stringify(newUser));
-  //   setUser(newUser);
-  //   setIsModalOpen(false);
-  //   alert("Ro‘yxatdan o‘tish muvaffaqiyatli!");
-  // };
-
-  // const handleLogin = () => {
-  //   const savedUser = JSON.parse(localStorage.getItem(email) || 'null');
-  //   if (savedUser && savedUser.password === password) {
-  //     localStorage.setItem("loggedInUser", JSON.stringify(savedUser));
-  //     setUser(savedUser);
-  //     setIsModalOpen(false);
-  //     alert("Login muvaffaqiyatli yakunlandi!");
-  //   } else {
-  //     alert("Email yoki parol noto‘g‘ri!");
-  //   }
-  // };
-
-  // const handleLogout = () => {
-  //   localStorage.removeItem("loggedInUser");
-  //   setUser(null);
-  // };
-
   const api = import.meta.env.VITE_API;
   const navigate = useNavigate();
+
+  const cartCount = useAppSelector((state) => state.cart.items);
 
   useEffect(() => {
     const loggedInUser = localStorage.getItem("loggedInUser");
@@ -209,7 +138,15 @@ function Navbar2() {
         <div className="flex items-center space-x-4">
           <img src={search} alt="Search" />
           <img src={bell} alt="Notifications" />
-          <img src={savat} alt="Cart" />
+          <div className="relative">
+            <img src={savat} alt="Cart" className="w-8 h-8" />
+            {cartCount > 0 && (
+              <span className="absolute top-[-5px] right-[-5px] bg-green-500 text-white text-xs rounded-full px-2 py-0.5">
+                {cartCount}
+              </span>
+            )}
+          </div>
+
           {user ? (
             <div className="flex items-center space-x-3">
               <div

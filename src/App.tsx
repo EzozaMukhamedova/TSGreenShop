@@ -15,6 +15,7 @@ import ProductDetailsPage from "./components/Home/Categories/MainMapping/Product
 import CategoriesMain from "./components/ProductDetails/CategoriesMain.jsx";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import MainMapping from "./components/Home/Categories/MainMapping";
 
 function App() {
   return (
@@ -26,9 +27,13 @@ function App() {
         <Route element={<Home />} path="/" />
         <Route element={<Profile />} path="/profile" />
 
+<Route path="/categories" element={<MainMapping/>} />
+
+
         <Route path="*" element={<NotFound />} />
         <Route path="/products/:productId" element={<ProductDetailsPage />} />
         <Route path="/categoriesMain" element={<CategoriesMain />} />
+        {/* <ToastContainer position="top-right" autoClose={2000} /> */}
       </Routes>
 
       <TopFooter />
