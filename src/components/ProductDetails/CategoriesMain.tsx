@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import flowerImage from "../../assets/images/flower.png";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const CategoriesMain = () => {
   const [quantity, setQuantity] = useState(1);

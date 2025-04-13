@@ -185,7 +185,13 @@ function Navbar2() {
     <div>
       <ToastContainer />
       <nav className="flex items-center justify-between w-[1240px] p-6 mx-auto bg-white border-b border-green-500 fixed top-0 left-1/2 transform -translate-x-1/2 z-20">
-        <img src={green} alt="Logo" />
+        <img
+          className="cursor-pointer"
+          onClick={() => navigate("/")}
+          src={green}
+          alt="Logo"
+        />
+
         <div className="flex gap-[20px] text-[16px] font-600 ">
           <h2
             onClick={() => navigate("/")}

@@ -32,14 +32,14 @@ const CategoriesMain = () => {
     queryFn: fetchUsers,
   });
 
-  const updateSort = (sortType) => {
+  const updateSort = (sortType: string): void => {
     searchParams.set("category", sortType);
     setSearchParams(searchParams);
   };
 
-  const updateRange = (min, max) => {
-    searchParams.set("range_min", min);
-    searchParams.set("range_max", max);
+  const updateRange = (min: number, max: number): void => {
+    searchParams.set("range_min", String(min));
+    searchParams.set("range_max", String(max));
     setSearchParams(searchParams);
   };
 
@@ -58,20 +58,29 @@ const CategoriesMain = () => {
           Categories
         </h3>
         <div className="flex flex-col gap-4 mt-[10px] pl-[10px]">
-          {data?.data?.map(({ title, count, route_path }, index) => {
-            return (
-              <div
-                onClick={() => updateSort(route_path)}
-                key={index}
-                className={`flex w-full justify-between text-base font-normal cursor-pointer text-[18px] text-[#3D3D3D] hover:text-[#46A358] transition-colors ${
-                  category === route_path && "text-[#46A358] font-extrabold"
-                }`}
-              >
-                <h3>{title}</h3>
-                <p>{count}</p>
-              </div>
-            );
-          })}
+          {data?.data?.map(
+            (
+              {
+                title,
+                count,
+                route_path,
+              }: { title: string; count: number; route_path: string },
+              index: number
+            ) => {
+              return (
+                <div
+                  onClick={() => updateSort(route_path)}
+                  key={index}
+                  className={`flex w-full justify-between text-base font-normal cursor-pointer text-[18px] text-[#3D3D3D] hover:text-[#46A358] transition-colors ${
+                    category === route_path && "text-[#46A358] font-extrabold"
+                  }`}
+                >
+                  <h3>{title}</h3>
+                  <p>{count}</p>
+                </div>
+              );
+            }
+          )}
         </div>
         <div className="my-[35px]">
           <h3 className="font-bold">Price Range</h3>
@@ -88,7 +97,7 @@ const CategoriesMain = () => {
             </span>
           </p>
           <button
-            onClick={() => updateRange(range[0], range[1])}
+            onClick={() => updateRange(Number(range[0]), Number(range[1]))}
             className="mt-[26px] float-left mb-[20px] bg-[#46A358] font-semibold text-white px-[30px] py-[8px] rounded-lg"
           >
             Filter
