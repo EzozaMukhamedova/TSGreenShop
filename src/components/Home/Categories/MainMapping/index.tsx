@@ -125,6 +125,8 @@ import { RingLoader } from "react-spinners";
 import { useAppDispatch } from "../../../../redux/store/hooks";
 import { addToCart } from "../../../../redux/store/cartSlice";
 import { toast } from "react-toastify";
+import { useDispatch } from "react-redux";
+import { addDataToShopping } from "../../../../redux/ShoppingSlice"
 
 const api = import.meta.env.VITE_API;
 
@@ -165,7 +167,8 @@ function MainMapping() {
   const range_max = searchParams.get("range_max") || 1000;
   const navigate = useNavigate();
 
-  const dispatch = useAppDispatch();
+  // const dispatch = useAppDispatch();
+  const dispatch = useDispatch();
 
   const { data, isLoading, error } = useQuery({
     queryKey: ["flower", category, range_min, range_max],
@@ -227,10 +230,11 @@ function MainMapping() {
                   <div className="absolute flex items-center gap-3 opacity-0 bottom-3 left-1/2 transform -translate-x-1/2 group-hover:opacity-100 transition-opacity duration-300">
                     <button
                       // onClick={handleAddToCart}
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        handleAddToCart(product);
-                      }}
+                      // onClick={(e) => {
+                      //   e.stopPropagation();
+                      //   handleAddToCart(product);
+                      // }}
+                      onClick={() => dispatch(addDataToShopping(product))}
                       className="p-2 bg-white rounded-full shadow hover:bg-[#46A358]"
                     >
                       <ShoppingCart className="w-5 h-5 text-gray-600 hover:text-white" />

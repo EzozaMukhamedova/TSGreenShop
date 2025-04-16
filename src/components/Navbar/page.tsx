@@ -11,6 +11,7 @@ import { signInWithGoogle } from "../../../firebase";
 import { Button } from "antd";
 import axios from "axios";
 import { useAppSelector } from "../../redux/store/hooks";
+import { useSelector } from "react-redux";
 
 interface User {
   name: string;
@@ -32,6 +33,8 @@ function Navbar2() {
 
   const api = import.meta.env.VITE_API;
   const navigate = useNavigate();
+  const { data } = useSelector((state) => state.shopping);
+
 
   const cartCount = useAppSelector((state) => state.cart.items);
 
@@ -138,11 +141,16 @@ function Navbar2() {
         <div className="flex items-center space-x-4">
           <img src={search} alt="Search" />
           <img src={bell} alt="Notifications" />
-          <div className="relative">
-            <img src={savat} alt="Cart" className="w-8 h-8" />
-            {cartCount > 0 && (
+          <div className="relative" >
+            <img
+              onClick={() => navigate("/product-card")}
+              src={savat}
+              alt="Cart"
+              className="w-8 h-8 cursor-pointer" 
+            />
+            {data.length > 0 && (
               <span className="absolute top-[-5px] right-[-5px] bg-green-500 text-white text-xs rounded-full px-2 py-0.5">
-                {cartCount}
+                {data.length}
               </span>
             )}
           </div>
