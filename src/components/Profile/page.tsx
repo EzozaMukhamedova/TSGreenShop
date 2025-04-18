@@ -183,6 +183,9 @@ import LocationIcon from "../../assets/images/location.svg";
 import HeartIcon from "../../assets/images/heartIcon.svg";
 import TrackOrderIcon from "../../assets/images/accountDetails.svg";
 import LogoutIcon from "../../assets/images/logout.svg";
+import { useNavigate } from "react-router-dom";
+
+// const navigate = useNavigate();
 
 interface MyAccountItem {
   key: string;
@@ -202,6 +205,7 @@ const menuItems: MyAccountItem[] = [
     key: "MyProducts",
     icon: AccountDetailsIcon,
     label: "My Products",
+    // onClick: () => navigate("/my-products"),
   },
   {
     key: "Address",
@@ -255,7 +259,7 @@ function Profile() {
   };
 
   return (
-    <div className="flex w-[1100px] mx-auto mt-[100px] my-[50px]">
+    <div className="flex w-[1100px] mx-auto mt-[100px] my-[50px] border">
       <div className="w-1/4 p-5 bg-gray-50">
         <ul className="space-y-7">
           {menuItems.map((item: MyAccountItem) => (
@@ -283,7 +287,7 @@ function Profile() {
         </ul>
       </div>
 
-      <div className="w-3/4 mx-auto">
+      <div className="w-3/4 mx-auto border">
         <h2 className="text-left ml-[30px] font-bold text-[#3D3D3D] mb-[20px]">
           Personal Information
         </h2>
