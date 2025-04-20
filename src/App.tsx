@@ -72,6 +72,7 @@ import MainMapping from "./components/Home/Categories/MainMapping";
 import ProductCard from "./components/ProductCard";
 import ProductCheckounts from "./components/ProductCheckout";
 import Blog from "./components/Blog";
+import TrackOrder from "./components/Profile/TrackOrder";
 
 function App() {
   return (
@@ -85,6 +86,8 @@ function App() {
         <Route path="/product-card" element={<ProductCard />} />
         <Route path="/product-checkout" element={<ProductCheckounts />} />
         <Route path="/blog" element={<Blog />} />
+        <Route path="/track-order" element={<TrackOrder />} />
+
         <Route path="/categories" element={<MainMapping />} />
         <Route path="*" element={<NotFound />} />
         <Route path="/products/:productId" element={<ProductDetailsPage />} />

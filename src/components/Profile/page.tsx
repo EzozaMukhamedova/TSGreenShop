@@ -175,6 +175,24 @@
 
 // export default Profile;
 
+
+// 1111111
+// import React from "react";
+// import MenuAcc from "./MenuAcc";
+// import AccDetails from "./AccDetails";
+
+// const Profile = () => {
+//   return (
+//     <div className=" flex w-full">
+//       <MenuAcc />
+//       <AccDetails />
+//     </div>
+//   );
+// };
+
+// export default Profile;
+// 111111
+
 import React, { useState, useEffect } from "react";
 
 import AccountIcon from "../../assets/images/account.svg";
@@ -205,7 +223,7 @@ const menuItems: MyAccountItem[] = [
     key: "MyProducts",
     icon: AccountDetailsIcon,
     label: "My Products",
-    // onClick: () => navigate("/my-products"),
+    onClick: () => navigate("/TrackOrder"),
   },
   {
     key: "Address",
@@ -287,7 +305,7 @@ function Profile() {
         </ul>
       </div>
 
-      <div className="w-3/4 mx-auto border">
+      <div className="w-3/4 mx-auto border border-red-500">
         <h2 className="text-left ml-[30px] font-bold text-[#3D3D3D] mb-[20px]">
           Personal Information
         </h2>
@@ -360,3 +378,4 @@ function Profile() {
 }
 
 export default Profile;
+
