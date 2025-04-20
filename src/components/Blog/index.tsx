@@ -1,59 +1,3 @@
-// import axios from "axios";
-// import React, { useState, useEffect } from "react";
-
-// const api = import.meta.env.VITE_API;
-
-// const token = "67e1514e2ac3b760a778e38a";
-
-// const fetchUsers = async () => {
-//   const { data } = await axios.get(
-//     `${api}/flower/category?access_token=64bebc1e2c6d3f056a8c85b7`
-//   );
-//   return data;
-// };
-
-// const Blog = () => {
-//   const [posts, setPosts] = useState([]);
-
-//   useEffect(() => {
-//     const fetchPosts = async () => {
-//       const response = axios.get(
-//         `${api}/user/blogs?access_token=64bebc1e2c6d3f056a8c85b7`
-//       );
-//       const data = await response.json();
-//       console.log(data); // Ma'lumotlarni konsolda ko'rish uchun
-//       if (data && data.posts) {
-//         setPosts(data.posts);
-//       }
-//     };
-
-//     fetchPosts();
-//   }, []);
-
-//   return (
-//     <div className="mt-[50px] mx-auto w-full max-w-6xl p-5">
-//       <h2 className="text-3xl font-bold mb-4">Blog</h2>
-//       <div className="grid grid-cols-3 gap-4">
-//         {posts.map((post) => (
-//           <div key={post._id} className="border rounded-lg p-4">
-//             <h3 className="font-semibold text-xl mb-2">{post.title}</h3>
-//             <p className="text-gray-600">{post.content}</p>
-//             <div className="flex justify-between items-center mt-4">
-//               <span>Views: {post.views}</span>
-//               <div>
-//                 <span>Likes: {post.likes}</span>
-//                 <span>Comments: {post.comments}</span>
-//               </div>
-//             </div>
-//           </div>
-//         ))}
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default Blog;
-
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Tooltip } from "antd";
@@ -142,12 +86,21 @@ export default function Blog() {
                   className="border rounded-lg pt-5 flex flex-col justify-between shadow-sm hover:shadow-lg transition-all duration-300 cursor-pointer"
                 >
                   <div className="px-5">
-                    <h3
+                    {/* <h3
                       className="text-xl font-semibold mb-2 hover:underline hover:text-[#46A358] cursor-pointer transition-colors duration-200"
-                      onClick={() => navigate(`/blog/${blog._id}`)}
+                      // onClick={() => navigate(`/blog/${blog._id}`)}
+                      onClick={() => window.open(`/blog/${blog._id}`, "_blank")}
                     >
                       {blog.title || "No Title"}
+                    </h3> */}
+
+                    <h3
+                      className="text-xl font-semibold mb-2 hover:underline"
+                      onClick={() => navigate(`/blog/${blog?._id}`)}
+                    >
+                      {blog?.title || "No Title"}
                     </h3>
+
                     <p className="text-sm text-gray-600">
                       {blog.short_description?.slice(0, 200) || "No content"}...
                     </p>

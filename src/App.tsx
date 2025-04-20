@@ -83,6 +83,7 @@ import Wishlist from "./components/Profile/Wishlist";
 import TrackOrder from "./components/Profile/TrackOrder";
 import Logout from "./components/Profile/Logout";
 import { Layout } from "antd";
+import AboutBlog from "./components/Blog/AboutBlog";
 
 // function App() {
 //   return (
@@ -132,11 +133,12 @@ function App() {
         <Route path="/product-card" element={<ProductCard />} />
         <Route path="/product-checkout" element={<ProductCheckounts />} />
         <Route path="/blog" element={<Blog />} />
+        <Route path="/blog/:id" element={<AboutBlog />} />
         <Route path="/categories" element={<MainMapping />} />
         <Route path="/products/:productId" element={<ProductDetailsPage />} />
         <Route path="/categoriesMain" element={<CategoriesMain />} />
 
-        {/* 👇 profil menyulari */}
+        {/*  profil menyulari */}
         <Route path="/account-details" element={<AccountDetails />} />
         <Route path="/my-products" element={<MyProducts />} />
         <Route path="/address" element={<Address />} />
