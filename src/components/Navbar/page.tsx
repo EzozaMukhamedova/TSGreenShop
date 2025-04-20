@@ -4,6 +4,7 @@ import search from "../../assets/images/search.png";
 import bell from "../../assets/images/bell.png";
 import savat from "../../assets/images/savat.png";
 import green from "../../assets/images/green.svg";
+import { RootState } from "../../redux/store/store";
 
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -33,8 +34,8 @@ function Navbar2() {
 
   const api = import.meta.env.VITE_API;
   const navigate = useNavigate();
-  const { data } = useSelector((state) => state.shopping);
-
+  // const { data } = useSelector((state) => state.shopping);
+  const { data } = useSelector((state: RootState) => state.shopping);
 
   const cartCount = useAppSelector((state) => state.cart.items);
 
@@ -141,12 +142,12 @@ function Navbar2() {
         <div className="flex items-center space-x-4">
           <img src={search} alt="Search" />
           <img src={bell} alt="Notifications" />
-          <div className="relative" >
+          <div className="relative">
             <img
               onClick={() => navigate("/product-card")}
               src={savat}
               alt="Cart"
-              className="w-8 h-8 cursor-pointer" 
+              className="w-8 h-8 cursor-pointer"
             />
             {data.length > 0 && (
               <span className="absolute top-[-5px] right-[-5px] bg-green-500 text-white text-xs rounded-full px-2 py-0.5">

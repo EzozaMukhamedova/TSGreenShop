@@ -126,7 +126,10 @@ import { useAppDispatch } from "../../../../redux/store/hooks";
 import { addToCart } from "../../../../redux/store/cartSlice";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
-import { addDataToShopping } from "../../../../redux/ShoppingSlice"
+import { addDataToShopping } from "../../../../redux/ShoppingSlice";
+
+
+import { addToWishlist } from "../../../../redux/store/wishlistSlice";
 
 const api = import.meta.env.VITE_API;
 
@@ -138,15 +141,21 @@ type Product = {
   main_image: string;
   discount_price?: number;
 };
+// const dispatch = useAppDispatch(); 
+
+const handleAddToWishlist = (product: Product) => {
+  dispatch(addToWishlist(product));
+  toast.info(`${product.title} added to your wishlist!`);
+};
 
 const handleAddToCart = () => {
   dispatch(addToCart());
   toast.success("Added to your shopping cart!");
 };
 
-const handleAddToWishlist = () => {
-  toast.info("Added to your wishlist!");
-};
+// const handleAddToWishlist = () => {
+//   toast.info("Added to your wishlist!");
+// };
 
 const fetchFlowers = async ({
   queryKey,

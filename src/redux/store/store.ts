@@ -40,15 +40,19 @@
 // export type AppDispatch = typeof store.dispatch;
 
 import { configureStore } from "@reduxjs/toolkit";
-import counterSlice from "../Counter"; 
+import counterSlice from "../Counter";
 import cartReducer from "./cartSlice";
+// import rootReducer from "./reducers";
 
-export const store = configureStore({
+const store = configureStore({
   reducer: {
     counter: counterSlice,
     cart: cartReducer,
+
+    // reducer: rootReducer,
   },
 });
+export default store;
 
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;

@@ -16,13 +16,15 @@
 // export * from "./store/hooks";
 // redux/store/index.ts
 import { configureStore } from "@reduxjs/toolkit";
+import wishlistReducer from "./store/wishlistSlice";
 import cartReducer from "./store/cartSlice";
 import authReducer from "./store/authSlice";
-import shoppingSlice from "./ShoppingSlice"
+import shoppingSlice from "./ShoppingSlice";
 
 const store = configureStore({
   reducer: {
     cart: cartReducer,
+    wishlist: wishlistReducer,
     shopping: shoppingSlice,
     auth: authReducer,
   },
