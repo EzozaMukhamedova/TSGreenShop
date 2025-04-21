@@ -77,49 +77,42 @@ const AccountSidebar: React.FC<SidebarProps> = ({
         <ul className="space-y-7">
           <h2 className="text-left font-bold text-[22px]">My Account</h2>
           {menuItems.map((item) => (
-            // <li
-            //   key={item.key}
-            //   className={`flex items-center cursor-pointer text-[18px] hover:text-${
-            //     item.hoverColor || "green-500"
-            //   } ${
+            //           <li
+            //             key={item.key}
+            //             onClick={() => handleItemClick(item)}
+            //             className={`
+            //   flex items-center cursor-pointer text-[18px]
+            //   transition-all duration-200
+            //   ${
             //     activeItem === item.key
-            //       ? `text-${item.textColor || "green-500"} border-l-4 border-${
-            //           item.textColor || "green-500"
-            //         } pl-2`
-            //       : ""
-            //   }`}
-            //   // onClick={() => {
-            //   //   setActiveItem(item.key);
-            //   //   if (item.route) {
-            //   //     navigate(item.route);
-            //   //   }
-            //   // }}
-            //   onClick={() => handleItemClick(item)}
-            // >
-            //   <img
-            //     src={item.icon}
-            //     className="mr-2"
-            //     alt={`${item.label} Icon`}
-            //   />
-            //   {item.label}
-            // </li>
-
+            //       ? `text-green-500 border-l-4 border-green-500 pl-2 font-semibold`
+            //       : "text-gray-700 hover:text-green-500"
+            //   }
+            // `}
+            //           >
+            //             <img
+            //               src={item.icon}
+            //               className="mr-2"
+            //               alt={`${item.label} Icon`}
+            //             />
+            //             {item.label}
+            //           </li>
             <li
               key={item.key}
               onClick={() => handleItemClick(item)}
               className={`
-    flex items-center cursor-pointer text-[18px] 
-    transition-all duration-200 
+    flex items-center cursor-pointer text-[18px] gap-2 px-3 py-2 rounded
+    transition-colors duration-200 
     ${
       activeItem === item.key
-        ? `text-green-500 border-l-4 border-green-500 pl-2 font-semibold`
-        : "text-gray-700 hover:text-green-500"
+        ? "text-green-500 border-l-4 border-green-500 pl-2 font-semibold bg-[#e8ebec]"
+        : "text-gray-700 hover:text-green-500 hover:bg-[#e8ebec]"
     }
   `}
             >
               <img
                 src={item.icon}
-                className="mr-2"
+                className="mr-2 w-5 h-5"
                 alt={`${item.label} Icon`}
               />
               {item.label}

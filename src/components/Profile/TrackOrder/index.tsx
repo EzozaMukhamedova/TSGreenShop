@@ -116,7 +116,7 @@ const TrackOrder = () => {
             <div
               key={order.id}
               className="grid grid-cols-4 items-center gap-4 border-b pb-4 text-sm 
-             hover:bg-[#f9f9f9] transition-colors duration-200 rounded-md px-3 py-2 cursor-pointer"
+             hover:bg-[#e8ebec] transition-colors duration-200 rounded-md px-3 py-2 cursor-pointer"
             >
               <div>
                 <p className="text-gray-500 font-medium">Order Number</p>

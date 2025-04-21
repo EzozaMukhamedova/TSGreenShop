@@ -1,33 +1,3 @@
-// import React, { useState } from "react";
-// import { useSelector } from "react-redux";
-// import AccountSidebar from "../AccountSidebar/AccountSidebar";
-
-// const MyProducts = () => {
-//   const { data } = useSelector((state: any) => state.shopping);
-//   const [activeItem, setActiveItem] = useState("AccountDetails");
-
-//   const subtotal = data.reduce(
-//     (acc: number, item: any) => acc + item.price * item.count,
-//     0
-//   );
-//   const discount = 0.0;
-//   const shipping = 16;
-//   const total = subtotal - discount + shipping;
-
-//   return (
-//     <>
-//       <div className="flex w-[1100px] mx-auto mt-[100px] my-[50px] border">
-//         <AccountSidebar activeItem={activeItem} setActiveItem={setActiveItem} />
-//         <div className="w-full border  rounded-md p-4 space-y-4 mt-[100px] ml-[20px]">
-//           <h3 className="text-lg font-semibold text-left">MYproduct</h3>
-//         </div>
-//       </div>
-//     </>
-//   );
-// };
-
-// export default MyProducts;
-
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import AccountSidebar from "../AccountSidebar/AccountSidebar";
@@ -71,7 +41,7 @@ const MyProducts = () => {
             {data.map((item: any) => (
               <div
                 key={item._id}
-                className="grid grid-cols-3 items-center text-sm border-b pb-2"
+                className="grid grid-cols-3 items-center text-sm border-b pb-2 hover:bg-[#e8ebec] transition-colors duration-200 px-2 py-2 rounded cursor-pointer"
               >
                 <div className="flex items-center gap-2">
                   <img
