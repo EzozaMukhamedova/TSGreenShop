@@ -110,9 +110,6 @@ export default function AboutBlog() {
 
   if (isBlogLoading || userIsLoading) {
     return (
-      // <div className="text-center mt-40">
-      //   <Spin size="large" /> Loading...
-      // </div>
       <div className="text-center mt-40 text-gray-500 text-lg">Loading...</div>
     );
   }
@@ -157,14 +154,12 @@ export default function AboutBlog() {
         </button>
       </div>
 
-      {/* Blog Content */}
       <h1 className="text-2xl font-bold my-8">{blog?.data?.title}</h1>
       <div
         className="prose max-w-none"
         dangerouslySetInnerHTML={{ __html: blog?.data?.content }}
       />
 
-      {/* Blog Stats */}
       <div className="flex items-center justify-between mt-16">
         <div className="flex items-center gap-4 text-gray-600 font-medium">
           <Tooltip title="Views">

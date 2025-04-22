@@ -77,26 +77,6 @@ const AccountSidebar: React.FC<SidebarProps> = ({
         <ul className="space-y-7">
           <h2 className="text-left font-bold text-[22px]">My Account</h2>
           {menuItems.map((item) => (
-            //           <li
-            //             key={item.key}
-            //             onClick={() => handleItemClick(item)}
-            //             className={`
-            //   flex items-center cursor-pointer text-[18px]
-            //   transition-all duration-200
-            //   ${
-            //     activeItem === item.key
-            //       ? `text-green-500 border-l-4 border-green-500 pl-2 font-semibold`
-            //       : "text-gray-700 hover:text-green-500"
-            //   }
-            // `}
-            //           >
-            //             <img
-            //               src={item.icon}
-            //               className="mr-2"
-            //               alt={`${item.label} Icon`}
-            //             />
-            //             {item.label}
-            //           </li>
             <li
               key={item.key}
               onClick={() => handleItemClick(item)}

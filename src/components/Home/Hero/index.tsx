@@ -10,12 +10,4 @@ const Hero = () => {
 
 export default Hero;
 
-// import React from "react";
-// import { useAppSelector } from "../../../store/hooks"; // 相対パスに注意
 
-// const Hero = () => {
-//   const counter = useAppSelector((state) => state.counter.value); // これで型エラーなし！
-//   return <div>Counter: {counter}</div>;
-// };
-
-// export default Hero;
